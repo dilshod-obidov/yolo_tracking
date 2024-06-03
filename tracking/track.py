@@ -22,6 +22,9 @@ from ultralytics.utils.plotting import Annotator, colors
 from ultralytics.data.utils import VID_FORMATS
 from ultralytics.utils.plotting import save_one_box
 
+###
+import os
+###
 
 def on_predict_start(predictor, persist=False):
     """
@@ -98,7 +101,23 @@ def run(args):
     # store custom args in predictor
     yolo.predictor.custom_args = args
 
+    ###
+    # Path to the frame number file
+    frame_number_path = 'yolo_frame_number.txt'
+
+    # Create or clear the file
+    open(frame_number_path, 'w').close()
+
+    frame_number = 0
+    ###
+
     for r in results:
+        ###
+        frame_number += 1
+        # Write the current frame number to the file
+        with open(frame_number_path, 'w') as f:
+            f.write(str(frame_number))
+        ###
 
         img = yolo.predictor.trackers[0].plot_results(r.orig_img, args.show_trajectories)
 

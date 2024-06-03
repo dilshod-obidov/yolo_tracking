@@ -5,6 +5,7 @@ env/
 *.DS_Store
 .coverage
 htmlcov/
+myenv/
 # interpreter bytecode
 __pycache__/
 
